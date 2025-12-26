@@ -289,6 +289,10 @@ async def serve_page(
     # try - templates.env.block_start_string = "@@@+"
     # try - templates.env.block_end_string = "@@@-"
 
+    # create booktype for the context so that we can
+    # determine pretext vs runestone differences
+    booktype = "rst"
+
     if course_attrs.get("markup_system", "RST") == "PreTeXt":
         rslogger.debug(f"PRETEXT book found at path {pagepath}")
         templates.env.variable_start_string = "~._"
@@ -296,6 +300,7 @@ async def serve_page(
         templates.env.comment_start_string = "@@#"
         templates.env.comment_end_string = "#@@"
         templates.env.globals.update({"URL": URL})
+        booktype = "pretext"
     # rslogger.debug(f"template cache size {templates.env.cache_size}")
 
     # enable compare me can be set per course if its not set provide a default of true
@@ -430,6 +435,7 @@ async def serve_page(
         show_ethical_ad=serve_ad,
         worker_name=worker_name,
         appname="runestone",  # for peer+ links
+        booktype=booktype, # for eBookConfig
         **course_attrs,
     )
     # See `templates <https://fastapi.tiangolo.com/advanced/templates/>`_.
