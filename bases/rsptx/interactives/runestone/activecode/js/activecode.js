@@ -31,6 +31,7 @@ import "codemirror/addon/hint/sql-hint.js";
 import "codemirror/addon/hint/anyword-hint.js";
 import "codemirror/addon/edit/matchbrackets.js";
 import { registerGDScriptMode } from "./codemirror_gdscript-mode.js";
+import { registerPyretMode } from "./codemirror_pyret-mode.js";
 
 
 
@@ -74,6 +75,8 @@ export class ActiveCode extends RunestoneBase {
         super(opts);
         // for gdscript mode in codemirror
         registerGDScriptMode(CodeMirror);
+        // for pyret mode in codemirror
+        registerPyretMode(CodeMirror);
         var orig = $(opts.orig).find("textarea")[0];
         this.containerDiv = opts.orig;
         this.useRunestoneServices = opts.useRunestoneServices;
@@ -284,6 +287,8 @@ export class ActiveCode extends RunestoneBase {
             edmode = "htmlmixed";
         } else if (edmode === "gdscript") {
             edmode = "text/x-gdscript";
+        } else if (edmode === "pyret") {
+            edmode = "text/x-pyret";
         }
         // Conditionally add a gutter to the editor to show the locked prefix and suffix
         let gutterList = [];

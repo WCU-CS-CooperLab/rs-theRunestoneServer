@@ -156,6 +156,15 @@ module.exports = (env, argv) => {
                             from: "node_modules/sql.js/dist/sql-wasm.wasm",
                             to: ".",
                         },
+                        {
+                            // pyret-embed support: editor.embed.html and its supporting js/css/img assets
+                            // are loaded directly by the iframe in activecode_pyret.js, not bundled by
+                            // webpack, so the whole directory tree is copied as-is. Internal references
+                            // inside editor.embed.html are relative (e.g. "./js/cpo-main.jarr.js"), so the
+                            // directory structure must be preserved rather than flattened like sql-wasm.wasm.
+                            from: "node_modules/pyret-embed/dist/build/web",
+                            to: "pyret-embed",
+                        },
                     ],
                 }),
                 new DefinePlugin(definePluginDict(env)),

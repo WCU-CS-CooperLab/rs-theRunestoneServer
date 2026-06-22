@@ -9,6 +9,7 @@ import JSActiveCode from "./activecode_js";
 import HTMLActiveCode from "./activecode_html";
 import SQLActiveCode from "./activecode_sql";
 import GodotActiveCode from "./activecode_gdscript";
+import PyretActiveCode from "./activecode_pyret";
 
 var TimedActiveCodeMixin = {
     timedInit: async function (opts) {
@@ -153,3 +154,11 @@ export class TimedGodotActiveCode extends GodotActiveCode {
     }
 }
 Object.assign(TimedGodotActiveCode.prototype, TimedActiveCodeMixin);
+
+export class TimedPyretActiveCode extends PyretActiveCode {
+    constructor(opts) {
+        super(opts);
+        this.timedInit(opts);
+    }
+}
+Object.assign(TimedPyretActiveCode.prototype, TimedActiveCodeMixin);

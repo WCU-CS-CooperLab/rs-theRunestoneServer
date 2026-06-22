@@ -4,6 +4,7 @@ import HTMLActiveCode from "./activecode_html.js";
 import SQLActiveCode from "./activecode_sql.js";
 import LiveCode from "./livecode.js";
 import GodotActiveCode from "./activecode_gdscript";
+import PyretActiveCode from "./activecode_pyret";
 
 
 import {
@@ -12,6 +13,8 @@ import {
     TimedJSActiveCode,
     TimedHTMLActiveCode,
     TimedSQLActiveCode,
+    TimedGodotActiveCode,
+    TimedPyretActiveCode,
 } from "./timed_activecode";
 import "../../common/js/jquery.highlight.js";
 
@@ -52,6 +55,8 @@ export default class ACFactory {
                 return new TimedSQLActiveCode(opts);
             } else if (lang === "gdscript") {
                 return new TimedGodotActiveCode(opts);
+            } else if (lang === "pyret") {
+                return new TimedPyretActiveCode(opts);
             } else {
                 return new TimedActiveCode(opts);
             }
@@ -64,6 +69,8 @@ export default class ACFactory {
                 return new SQLActiveCode(opts);
             } else if (lang === "gdscript") {
                 return new GodotActiveCode(opts);
+            } else if (lang === "pyret") {
+                return new PyretActiveCode(opts);
             } else if (
                 ["java", "cpp", "c", "python3", "python2", "octave", "kotlin"].indexOf(
                     lang
