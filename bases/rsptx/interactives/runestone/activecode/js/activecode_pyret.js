@@ -79,7 +79,7 @@ export default class PyretActiveCode extends ActiveCode {
         embedContainer.style.height = "400px";
         embedContainer.style.opacity = "1";
         //embedContainer.style.overflow = "hidden";
-        embedContainer.style.pointerEvents = "none";
+        //embedContainer.style.pointerEvents = "none";
         this.outDiv.parentNode.insertBefore(embedContainer, this.outDiv);
         this.embedContainer = embedContainer;
 
