@@ -3,9 +3,36 @@ Adding a new programming language
 
 One of the key capabilities of the Runestone system is being able to interactively execute and manipulate code within its textbooks. Developers may wish to add new programming languages to the system. Doing so requires making changes in a number of places. This section provides some pointers on how to make such changes.
 
-Note that this process requires updating three different software repositories, each of which require you to set up a local development environment. These instructions try to point you in the right direction, but they are not comprehensive with regards to setting up a development environment for each project. You'll need to visit the documentation for each individual project for more information on how to do that. Likewise, you'll need to navigate some complications in testing your changes before you submit because two of these projects (PreTeXt and Runestone) each automatically install and make use components of the other project that may not have been updated it.
+There are a number of ways to add a new programming language.
 
-Here are some guidelines on how to make such changes.
+1. If you just want syntax highlighting and you are not interested in ``ActiveCode`` programs, then you can just make changes to the `PreTeXt repo`.
+2. If your language needs to be compiled and run on a server, then you'll need to update the `Runestone Jobe repo <https://github.com/RunestoneInteractive/jobe>`_, the `PreTeXt repo <https://github.com/PreTeXtBook/pretext>`_, and the 
+   `Runestone Monorepo (rs)<https://github.com/RunestoneInteractive/rs>`_.
+3. If your language can be run by a Web Assembly (WASM) interpreter, then you'll need to update the `PreTeXt repo <https://github.com/PreTeXtBook/pretext>`_, the `pretext-cli repo <https://github.com/PreTeXtBook/pretext-cli>`_, and the 
+   `Runestone Monorepo (rs)<https://github.com/RunestoneInteractive/rs>`_.
+
+Note that this process requires updating different software repositories, each of which require you to set up a local development environment. These instructions try to point you in the right direction, but they are not comprehensive with regards to setting up a development environment for each project. You'll need to visit the documentation for each individual project for more information on how to do that. Likewise, you'll need to navigate some complications in testing your changes before you submit because two of these projects (PreTeXt and Runestone) each automatically install and make use components of the other project that may not have been updated yet.
+
+Below are some guidelines on how to make such changes.
+
+Syntax Highlighting Only
+----
+Making a pull request to PreTeXt repository has the strictest policies of the
+repositories that you may need to contribute to when adding a new language, so 
+starting with a pull request that is only for highlighting your language is
+a good first contribution that will require the least number of changes.
+
+PreTeXt uses `prism <https://prismjs.com>`_ for highlighting html and `listings <https://ctan.org/pkg/listings>`_ 
+for formatting pdf files. If the language you are adding is already supported by
+prism and listings, then it's likely that syntax highlighting already works in 
+PreTeXt. If not, then you'll need to add rules for ``prism`` and/or ``listings``.
+
+An example of adding rules for prism are in the 
+`gdscript highlighting and packaging pull request <https://github.com/PreTeXtBook/pretext/pull/3024/changes/9fda83edbe720f6f27c4e713b816b2dcf13b9cd0>`_. 
+A new javascript file needs to be added with the rules, and that file needs to be included
+in the jsbuilder.mjs file.
+
+
 
 Jobe
 ----
