@@ -5,10 +5,10 @@ One of the key capabilities of the Runestone system is being able to interactive
 
 There are a number of ways to add a new programming language.
 
-1. If you just want syntax highlighting and you are not interested in ``ActiveCode`` programs, then you can just make changes to the `PreTeXt repo`.
-2. If your language needs to be compiled and run on a server, then you'll need to update the `Runestone Jobe repo <https://github.com/RunestoneInteractive/jobe>`_, the `PreTeXt repo <https://github.com/PreTeXtBook/pretext>`_, and the 
+1. *Syntax Highlighting Only*: If you just want syntax highlighting and you are not interested in ``ActiveCode`` programs, then you can just make changes to the `PreTeXt repo`.
+2. *Server-Side ActiveCode*: If your language needs to be compiled and run on a server, then you'll need to update the `Runestone Jobe repo <https://github.com/RunestoneInteractive/jobe>`_, the `PreTeXt repo <https://github.com/PreTeXtBook/pretext>`_, and the 
    `Runestone Monorepo (rs)<https://github.com/RunestoneInteractive/rs>`_.
-3. If your language can be run by a Web Assembly (WASM) interpreter, then you'll need to update the `PreTeXt repo <https://github.com/PreTeXtBook/pretext>`_, the `pretext-cli repo <https://github.com/PreTeXtBook/pretext-cli>`_, and the 
+3. *Client-Side ActiveCode*: If your language can be run by a Web Assembly (WASM) interpreter, then you'll need to update the `PreTeXt repo <https://github.com/PreTeXtBook/pretext>`_, the `pretext-cli repo <https://github.com/PreTeXtBook/pretext-cli>`_, and the 
    `Runestone Monorepo (rs)<https://github.com/RunestoneInteractive/rs>`_.
 
 Note that this process requires updating different software repositories, each of which require you to set up a local development environment. These instructions try to point you in the right direction, but they are not comprehensive with regards to setting up a development environment for each project. You'll need to visit the documentation for each individual project for more information on how to do that. Likewise, you'll need to navigate some complications in testing your changes before you submit because two of these projects (PreTeXt and Runestone) each automatically install and make use components of the other project that may not have been updated yet.
@@ -41,19 +41,22 @@ Steps for updating the PreTeXt repo
 2. Clone your fork and make a branch specific to your changes.
 3. Read `PreTeXt contributing guide <https://github.com/PreTeXtBook/pretext/blob/master/CONTRIBUTING.md>`_.
 4. Let the pretext developers know that you plan to add a new language.
-5. At least skim the `Pretext developer's guide <https://pretextbook.org/doc/guide/html/part-developer.html>`
+5. At least skim the `Pretext developer's guide <https://pretextbook.org/doc/guide/html/part-developer.html>`_
 6. Get to know the files in the ``script`` folder of the pretext repository. Specifically the scripts in the ``script/utilities`` directory will be helpful to check your code for extra whitespace that should be removed before a pull request is made.
-7. Make your changes.
-8. Add examples to the sample-book, such as the `kotlin changes <https://github.com/PreTeXtBook/pretext/pull/2719/changes/547aecc8be210a3f14f2539867e976c02b510130>`.
-9. Update the documentation, such as `kotlin guide changes <https://github.com/PreTeXtBook/pretext/pull/2719/changes/7cee627cdd74504cf9a48d24efa99d761db07f88>`
-10. Your changes may need to be split up into different parts for different parts of pretext. For instance for kotlin the changes include `schema <https://github.com/PreTeXtBook/pretext/pull/2719/changes/d1e91b74e30501338c1b683ab8ff2df3f9f41e70>`, `common <https://github.com/PreTeXtBook/pretext/pull/2719/changes/6eb5973953275fc60ea57b15f7366ff3da666b27>`, `Runestone <https://github.com/PreTeXtBook/pretext/pull/2719/changes/1a68efa863ebf7b99cbd935e1b018d24188258cd>`, and `publisher variables <https://github.com/PreTeXtBook/pretext/pull/2719/changes/d227003b797c918f152a80b86af8abcf3c7f3776>` changes. Each requiring a separate commit for clarity.
-11. Do a final check that your pretext validates
-12. Do a final check that your whitespace is correct (spaces instead of tabs, no trailing whitespace, no extra empty lines)
-13. Right before making a pull request make sure to
+7. :ref:`local_pretext`
+8. Make your changes.
+9. Add examples to the sample-book, such as the `kotlin changes <https://github.com/PreTeXtBook/pretext/pull/2719/changes/547aecc8be210a3f14f2539867e976c02b510130>`_.
+10. Update the documentation, such as `kotlin guide changes <https://github.com/PreTeXtBook/pretext/pull/2719/changes/7cee627cdd74504cf9a48d24efa99d761db07f88>`_
+11. Your changes may need to be split up into different parts for different parts of pretext. For instance for kotlin the changes include `schema <https://github.com/PreTeXtBook/pretext/pull/2719/changes/d1e91b74e30501338c1b683ab8ff2df3f9f41e70>`_, `common <https://github.com/PreTeXtBook/pretext/pull/2719/changes/6eb5973953275fc60ea57b15f7366ff3da666b27>`_, `Runestone <https://github.com/PreTeXtBook/pretext/pull/2719/changes/1a68efa863ebf7b99cbd935e1b018d24188258cd>`_, and `publisher variables <https://github.com/PreTeXtBook/pretext/pull/2719/changes/d227003b797c918f152a80b86af8abcf3c7f3776>`_ changes. Each requiring a separate commit for clarity.
+12. Do a final check that your pretext validates
+13. Do a final check that your whitespace is correct (spaces instead of tabs, no trailing whitespace, no extra empty lines)
+14. Right before making a pull request make sure to
+    
     - switch to the master branch locally
     - pull the upstream master
     - switch back to your branch locally
     - rebase the master
+15. :ref:`verify_pretext`
     
 
 Server-Side ActiveCode: Jobe
@@ -97,6 +100,8 @@ PreTeXt is the markup language used for actually writing the books. When PreTeXt
 
 The PreTeXt team prefers that you discuss your idea with them on the development email list before you implement it and submit a pull request, so it is recommended that you do that early in the process. Make sure to first check out the `PreTeXt contributing guide <https://github.com/PreTeXtBook/pretext/blob/master/CONTRIBUTING.md>`_. 
 
+.. _local_pretext:
+
 Set up a local copy of PreTeXt source code for development
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -130,6 +135,8 @@ Here is `an example pull request <https://github.com/PreTeXtBook/pretext/pull/27
 
 * Not all of the PreTeXt files that mention programming languages need to be updated. The pull request linked above has a brief discussion about this, and some more details are in `these details on the PreTeXt schema <https://github.com/PreTeXtBook/pretext/blob/master/schema/README.md>`_. Specifically, you'll need to change the file ``publication-schema.xml``, but you don't need to change ``publication-schema.rnc``, ``publication-schema.rng``, or ``publication-schema.xsd`` files, as they are typically generated by the PreTeXt developers when they merge in your code.
 
+
+.. _verify_pretext:
 
 Verify that the updates worked, and submit them
 +++++++++++++++++++++++++++++++++++++++++++++++
