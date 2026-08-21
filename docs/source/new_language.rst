@@ -17,10 +17,12 @@ Below are some guidelines on how to make such changes.
 
 Syntax Highlighting Only
 ----
-Making a pull request to PreTeXt repository has the strictest policies of the
-repositories that you may need to contribute to when adding a new language, so 
-starting with a pull request that is only for highlighting your language is
-a good first contribution that will require the least number of changes.
+If you just want to make syntax highlighting look right in your book, then
+you'll only need to work on the PreTeXt repository. If this is your first 
+contribution to PreTeXt, then doing the highlighting only step first may be
+an easier first contribution. The PreTeXt repository has strict policies for 
+making a pull request, and the highlighting only task requires the least number
+of changes.
 
 PreTeXt uses `prism <https://prismjs.com>`_ for highlighting html and `listings <https://ctan.org/pkg/listings>`_ 
 for formatting pdf files. If the language you are adding is already supported by
@@ -32,9 +34,29 @@ An example of adding rules for prism are in the
 A new javascript file needs to be added with the rules, and that file needs to be included
 in the jsbuilder.mjs file.
 
+Steps for updating the PreTeXt repo
+++++++++++++++++++++++++
 
+1. Make a fork of the repo on GitHub.
+2. Clone your fork and make a branch specific to your changes.
+3. Read `PreTeXt contributing guide <https://github.com/PreTeXtBook/pretext/blob/master/CONTRIBUTING.md>`_.
+4. Let the pretext developers know that you plan to add a new language.
+5. At least skim the `Pretext developer's guide <https://pretextbook.org/doc/guide/html/part-developer.html>`
+6. Get to know the files in the ``script`` folder of the pretext repository. Specifically the scripts in the ``script/utilities`` directory will be helpful to check your code for extra whitespace that should be removed before a pull request is made.
+7. Make your changes.
+8. Add examples to the sample-book, such as the `kotlin changes <https://github.com/PreTeXtBook/pretext/pull/2719/changes/547aecc8be210a3f14f2539867e976c02b510130>`.
+9. Update the documentation, such as `kotlin guide changes <https://github.com/PreTeXtBook/pretext/pull/2719/changes/7cee627cdd74504cf9a48d24efa99d761db07f88>`
+10. Your changes may need to be split up into different parts for different parts of pretext. For instance for kotlin the changes include `schema <https://github.com/PreTeXtBook/pretext/pull/2719/changes/d1e91b74e30501338c1b683ab8ff2df3f9f41e70>`, `common <https://github.com/PreTeXtBook/pretext/pull/2719/changes/6eb5973953275fc60ea57b15f7366ff3da666b27>`, `Runestone <https://github.com/PreTeXtBook/pretext/pull/2719/changes/1a68efa863ebf7b99cbd935e1b018d24188258cd>`, and `publisher variables <https://github.com/PreTeXtBook/pretext/pull/2719/changes/d227003b797c918f152a80b86af8abcf3c7f3776>` changes. Each requiring a separate commit for clarity.
+11. Do a final check that your pretext validates
+12. Do a final check that your whitespace is correct (spaces instead of tabs, no trailing whitespace, no extra empty lines)
+13. Right before making a pull request make sure to
+    - switch to the master branch locally
+    - pull the upstream master
+    - switch back to your branch locally
+    - rebase the master
+    
 
-Jobe
+Server-Side ActiveCode: Jobe
 ----
 Jobe is the server that receives and executes programming code. It needs to be updated so that it knows how to handle instructions that it will receive to execute code in your new language.
 
@@ -69,7 +91,7 @@ Submit a pull request
 +++++++++++++++++++++
 If your tests pass, then submit a pull request to the `Runestone Jobe repo <https://github.com/RunestoneInteractive/jobe>`_ with your updates. Here is an `example Jobe pull request <https://github.com/RunestoneInteractive/jobe/pull/2>`_.
 
-PreTeXt
+Server-Side ActiveCode: PreTeXt
 -------
 PreTeXt is the markup language used for actually writing the books. When PreTeXt outputs HTML code containing programming code for active use within Runestone, it embeds markup information within to tell the Runestone server what language is being used. You will need to update PreTeXt so that it correctly tags Runestone-viewable code for your language.
 
@@ -117,7 +139,7 @@ Repeat the steps above where you build your book with PreTeXt at the command lin
 If these updates are working, submit your pull request to the PreTeXt project.
 
 
-Runestone
+Server-Side ActiveCode: Runestone
 ---------
 ``rs`` is the main Runestone monorepo. It contains a lot of things in it, but the relevant aspect here is the web server that renders your book and executes live code.
 
